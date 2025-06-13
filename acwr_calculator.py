@@ -30,7 +30,7 @@ def calculate_rolling_average_acwr(data, acute_days=7, chronic_days=28):
 
     return acute_load / chronic_load
 
-def calculate_ewma_acwr(data, acute_lambda=0.2, chronic_lambda=0.1, chronic_days=28):
+def calculate_ewma_acwr(data, acute_lambda=0.25, chronic_lambda=0.069, chronic_days=28):
     """
     Calculate ACWR using Exponentially Weighted Moving Average
     """
