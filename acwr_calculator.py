@@ -30,11 +30,11 @@ def calculate_rolling_average_acwr(data, acute_days=7, chronic_days=28):
 
     return acute_load / chronic_load
 
-def calculate_ewma_acwr(data, acute_lambda=0.2, chronic_lambda=0.1):
+def calculate_ewma_acwr(data, acute_lambda=0.2, chronic_lambda=0.1, chronic_days=28):
     """
     Calculate ACWR using Exponentially Weighted Moving Average
     """
-    if len(data) < 2:
+    if len(data) < chronic_days:
         return np.nan
 
     # Calculate EWMA for acute (7 days)
