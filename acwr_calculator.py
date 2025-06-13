@@ -38,8 +38,8 @@ def calculate_ewma_acwr(data, acute_days=7, chronic_days=28):
     
     # Calculate lambda values based on the periods (CORRECTED FORMULA)
     # Formula: λ = 2 / (N + 1) where N is the time window
-    acute_lambda = 2 / (acute_period + 1)
-    chronic_lambda = 2 / (chronic_period + 1)
+    acute_lambda = 2 / (acute_days + 1)
+    chronic_lambda = 2 / (chronic_days + 1)
     
     # Initialize EWMA values with first data point
     acute_ewma = data[0]
