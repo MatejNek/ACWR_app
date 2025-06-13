@@ -33,7 +33,7 @@ def calculate_rolling_average_acwr(data, acute_days=7, chronic_days=28):
 def calculate_ewma_acwr(data, acute_days=7, chronic_days=28):
     
     # Check if we have enough data
-    if len(data) < chronic_period:
+    if len(data) < chronic_days:
         return np.nan
     
     # Calculate lambda values based on the periods (CORRECTED FORMULA)
