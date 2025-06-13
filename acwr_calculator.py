@@ -33,18 +33,18 @@ def calculate_rolling_average_acwr(data, acute_days=7, chronic_days=28):
 def calculate_ewma_acwr(data, acute_lambda=0.25, chronic_lambda=0.069, chronic_days=28):
     """
     Calculate ACWR using Exponentially Weighted Moving Average
+    Fixed version that properly updates both acute and chronic EWMA for all data points
     """
     if len(data) < chronic_days:
         return np.nan
 
-    # Calculate EWMA for acute (7 days)
+    # Initialize EWMA values with first data point
     acute_ewma = data[0]
-    for i in range(1, min(len(data), 7)):
-        acute_ewma = acute_lambda * data[i] + (1 - acute_lambda) * acute_ewma
-
-    # Calculate EWMA for chronic (28 days)
     chronic_ewma = data[0]
+    
+    # ✅ FIX: Calculate EWMA for ALL data points, not just first 7
     for i in range(1, len(data)):
+        acute_ewma = acute_lambda * data[i] + (1 - acute_lambda) * acute_ewma
         chronic_ewma = chronic_lambda * data[i] + (1 - chronic_lambda) * chronic_ewma
 
     if chronic_ewma == 0:
