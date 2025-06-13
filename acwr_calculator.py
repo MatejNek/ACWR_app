@@ -110,14 +110,20 @@ def main():
         st.sidebar.markdown("CSV should contain columns: `Date` and `Training_Load`")
 
         uploaded_file = st.sidebar.file_uploader(
-            "Choose a CSV file",
-            type="csv",
-            help="Upload a CSV file with Date and Training_Load columns"
+            "Choose a CSV or Excel file",
+            type=["csv", "xlsx"],
+            help="Upload a CSV or Excel file with Date and Training_Load columns"
         )
 
         if uploaded_file is not None:
             try:
-                df = pd.read_csv(uploaded_file)
+                if uploaded_file.name.endswith('.csv'):
+                    df = pd.read_csv(uploaded_file)
+                elif uploaded_file.name.endswith('.xlsx'):
+                    df = pd.read_excel(uploaded_file)
+                else:
+                    raise ValueError("Unsupported file type")
+
                 df['Date'] = pd.to_datetime(df['Date'])
                 df = df.sort_values('Date')
                 st.sidebar.success(f"✅ Loaded {len(df)} records")
